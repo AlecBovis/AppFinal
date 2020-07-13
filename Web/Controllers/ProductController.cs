@@ -10,6 +10,8 @@ namespace Web.Controllers
 {
     public class ProductController : Controller
     {
+        ProductProxy proxy = new ProductProxy();
+
         // GET: Product
         public ActionResult Index()
         {
