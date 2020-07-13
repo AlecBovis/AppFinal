@@ -145,7 +145,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Proxy\CustomerProxy.cs" />
     <Compile Include="Proxy\ProductProxy.cs" />
+    <Compile Include="Proxy\RegisterProxy.cs" />
+    <Compile Include="Proxy\SalesInvoiceDetailProxy.cs" />
+    <Compile Include="Proxy\SalesInvoiceProxy.cs" />
+    <Compile Include="Proxy\SellerProxy.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
