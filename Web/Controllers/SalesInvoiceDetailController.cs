@@ -1,16 +1,16 @@
 ﻿using Models.Request;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Web.Proxy;
+
 namespace Web.Controllers
 {
-    public class ProductController : Controller
+    public class SalesInvoiceDetailController : Controller
     {
-        // GET: Product
+        SalesInvoiceDetailProxy proxy = new SalesInvoiceDetailProxy();
+
+        // GET: SalesInvoiceDetail
         public ActionResult Index()
         {
             return View();
@@ -30,21 +30,22 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Add(Product_Request model)
+        public ActionResult Add(SalesInvoceDetail_Request model)
         {
-            if (model.ProductID == 0)
-            {
-                var response = Task.Run(() => proxy.Add(model));
-                return Json(response, JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                var response = Task.Run(() => proxy.Update(model));
-                return Json(response, JsonRequestBehavior.AllowGet);
-            }
+            var response = Task.Run(() => proxy.Add(model));
+            string message = response.Result.Message;
+            return Json(new { Message = message, JsonRequestBehavior.AllowGet });
         }
 
-        [HttpPost]
+        [HttpPut]
+        public ActionResult Update(SalesInvoceDetail_Request model)
+        {
+            var response = Task.Run(() => proxy.Update(model));
+            string message = response.Result.Message;
+            return Json(new { Message = message, JsonRequestBehavior.AllowGet });
+        }
+
+        [HttpDelete]
         public ActionResult Delete(int id)
         {
             var response = Task.Run(() => proxy.Delete(id));

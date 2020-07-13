@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Web.Proxy;
+
 namespace Web.Controllers
 {
-    public class ProductController : Controller
+    public class SalesInvoiceController : Controller
     {
-        // GET: Product
+        SalesInvoiceProxy proxy = new SalesInvoiceProxy();
+        // GET: SalesInvoice
         public ActionResult Index()
         {
             return View();
@@ -30,18 +32,18 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Add(Product_Request model)
+        public ActionResult Add(SalesInvoiceRegister_Request model)
         {
-            if (model.ProductID == 0)
-            {
-                var response = Task.Run(() => proxy.Add(model));
-                return Json(response, JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                var response = Task.Run(() => proxy.Update(model));
-                return Json(response, JsonRequestBehavior.AllowGet);
-            }
+            var response = Task.Run(() => proxy.Add(model));
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPut]
+        public ActionResult Update(SalesInvoce_Request model)
+        {
+            var response = Task.Run(() => proxy.Update(model));
+            string message = response.Result.Message;
+            return Json(new { Message = message, JsonRequestBehavior.AllowGet });
         }
 
         [HttpPost]
